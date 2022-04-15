@@ -1,11 +1,9 @@
 {
-    "env": {
-        "node": true
-    },
+    "extends": [
+        "xo",
+        "xo-typescript"
+    ],
     "parserOptions": {
-        "ecmaVersion": 6
-    },
-    "rules": {
-        "no-unused-vars": "error"
+        "project": "src/tsconfig.json"
     }
 }

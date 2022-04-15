@@ -4,7 +4,7 @@
     "declaration": true,
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "declarationDir": "lib/types/"
+    "declarationDir": "../lib/types/"
   },
   "include": ["**/*"]
 }

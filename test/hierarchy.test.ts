@@ -5,9 +5,7 @@
  *
  */
 
-import fs from 'fs';
 import path from 'path';
-var spawn = require('child_process').spawn;
 import nconf from '../src';
 
 var configDir = path.join(__dirname, 'fixtures', 'hierarchy');
@@ -23,7 +21,6 @@ describe('nconf/hierarchy, When using nconf', () => {
     expect(nconf.get('title')).toEqual('My specific title');
     expect(nconf.get('color')).toEqual('green');
     expect(nconf.get('movie')).toEqual('Kill Bill');
-
   });
   it("configured with two file stores using `file` should have the appropriate keys present", () => {
     nconf.file('user', userConfig);
