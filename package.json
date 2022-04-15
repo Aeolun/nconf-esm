@@ -4,7 +4,7 @@
   "types": "./lib/types/index.d.ts",
   "module": "./lib/esm/index.js",
   "description": "Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "authors": [
     "Bart Riepe <bart@serial-experiments.com>",
     "Charlie Robbins <charlie.robbins@gmail.com>"
