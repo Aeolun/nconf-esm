@@ -1,0 +1,107 @@
+/*
+ * env.js: Simple memory-based store for environment variables
+ *
+ * (C) 2011, Charlie Robbins and the Contributors.
+ *
+ */
+
+import common from "../common.js";
+import { Memory } from "./memory.js";
+
+//
+// ### function Env (options)
+// #### @options {Object} Options for this instance.
+// Constructor function for the Env nconf store, a simple abstraction
+// around the Memory store that can read process environment variables.
+//
+export class Env extends Memory {
+  whitelist;
+  lowerCase;
+  transform;
+  match;
+
+  constructor(options: any = {}) {
+    super(options);
+
+    this.type = "env";
+    this.readOnly = options.readOnly !== undefined ? options.readOnly : true;
+    this.whitelist = options.whitelist || [];
+    this.lowerCase = options.lowerCase || false;
+    this.parseValues = options.parseValues || false;
+    this.transform = options.transform || false;
+
+    if (
+      {}.toString.call(options.match) === "[object RegExp]" &&
+      typeof options !== "string"
+    ) {
+      this.match = options.match;
+    }
+
+    if (options instanceof Array) {
+      this.whitelist = options;
+    }
+  }
+
+  //
+  // ### function loadSync ()
+  // Loads the data passed in from `process.env` into this instance.
+  //
+  loadSync() {
+    this.loadEnv();
+    return this.store;
+  }
+
+  //
+  // ### function loadEnv ()
+  // Loads the data passed in from `process.env` into this instance.
+  //
+  loadEnv() {
+    var self = this;
+
+    var env = process.env;
+
+    if (this.lowerCase) {
+      env = {};
+      Object.keys(process.env).forEach(function (key) {
+        env[key.toLowerCase()] = process.env[key];
+      });
+    }
+
+    if (this.transform) {
+      env = common.transform(env, this.transform);
+    }
+
+    var tempWrite = false;
+
+    if (this.readOnly) {
+      this.readOnly = false;
+      tempWrite = true;
+    }
+
+    Object.keys(env)
+      .filter(function (key) {
+        if (self.match && self.whitelist.length) {
+          return key.match(self.match) || self.whitelist.indexOf(key) !== -1;
+        } else if (self.match) {
+          return key.match(self.match);
+        } else {
+          return !self.whitelist.length || self.whitelist.indexOf(key) !== -1;
+        }
+      })
+      .forEach(function (key) {
+        var val = env[key];
+
+        if (self.parseValues) {
+          val = common.parseValues(val);
+        }
+
+        self.set(key, val);
+      });
+
+    if (tempWrite) {
+      this.readOnly = true;
+    }
+
+    return this.store;
+  }
+}

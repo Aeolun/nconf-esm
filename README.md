@@ -1,15 +1,23 @@
-# nconf
+# nconf-esm
 
-[![Version npm](https://img.shields.io/npm/v/nconf.svg?style=flat-square)](https://www.npmjs.com/package/nconf)[![npm Downloads](https://img.shields.io/npm/dm/nconf.svg?style=flat-square)](https://www.npmjs.com/package/nconf)[![Build Status](https://img.shields.io/travis/indexzero/nconf/master.svg?style=flat-square)](https://travis-ci.org/indexzero/nconf)[![Coverage](https://img.shields.io/coveralls/indexzero/nconf.svg?style=flat-square)](https://coveralls.io/github/indexzero/nconf)[![Dependencies](https://img.shields.io/david/indexzero/nconf.svg?style=flat-square)](https://david-dm.org/indexzero/nconf)
+[![Version npm](https://img.shields.io/npm/v/nconf-esm.svg?style=flat-square)](https://www.npmjs.com/package/nconf-esm)
+[![npm Downloads](https://img.shields.io/npm/dm/nconf-esm.svg?style=flat-square)](https://www.npmjs.com/package/nconf-esm)
 
 Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging.
 
+This version is based on the latest nconf version, and should be fully compatible, but is fully converted to ESM and 
+promises so it can be used in modern javascript.
+
+You can find the original [here](https://github.com/indexzero/nconf).
+
 ## Example
-Using nconf is easy; it is designed to be a simple key-value store with support for both local and remote storage. Keys are namespaced and delimited by `:`. Let's dive right into sample usage:
+Using nconf-esm is easy; it is designed to be a simple key-value store with support for both local and remote storage.
+Keys are namespaced and delimited by `:`. Let's dive right into sample usage:
 
 ``` js
   // sample.js
-  var nconf = require('nconf');
+  import nconf from 'nconf-esm';
+  import fs from 'fs'
 
   //
   // Setup nconf to use (in-order):
@@ -38,14 +46,14 @@ Using nconf is easy; it is designed to be a simple key-value store with support 
   //
   // Save the configuration object to disk
   //
-  nconf.save(function (err) {
-    require('fs').readFile('path/to/your/config.json', function (err, data) {
-      console.dir(JSON.parse(data.toString()))
-    });
+  await nconf.save();
+  
+  fs.readFile('path/to/your/config.json', function (err, data) {
+    console.dir(JSON.parse(data.toString()))
   });
 ```
 
-If you run the below script:
+If you run the above script in your terminal like this:
 
 ``` bash
   $ NODE_ENV=production node sample.js --foo bar
@@ -61,7 +69,7 @@ The output will be:
 
 ## Hierarchical configuration
 
-Configuration management can get complicated very quickly for even trivial applications running in production. `nconf` addresses this problem by enabling you to setup a hierarchy for different sources of configuration with no defaults. **The order in which you attach these configuration sources determines their priority in the hierarchy.** Let's take a look at the options available to you
+Configuration management can get complicated very quickly for even trivial applications running in production. `nconf-esm` addresses this problem by enabling you to setup a hierarchy for different sources of configuration with no defaults. **The order in which you attach these configuration sources determines their priority in the hierarchy.** Let's take a look at the options available to you
 
   1. **nconf.argv(options)** Loads `process.argv` using yargs. If `options` is supplied it is passed along to yargs.
   2. **nconf.env(options)** Loads `process.env` into the hierarchy.
@@ -72,7 +80,7 @@ Configuration management can get complicated very quickly for even trivial appli
 A sane default for this could be:
 
 ``` js
-  var nconf = require('nconf');
+  import nconf from 'nconf-esm';
 
   //
   // 1. any overrides
@@ -118,7 +126,7 @@ A sane default for this could be:
 
 ## API Documentation
 
-The top-level of `nconf` is an instance of the `nconf.Provider` abstracts this all for you into a simple API.
+The top-level of `nconf-esm` is an instance of the `nconf.Provider`, which abstracts this all for you into a simple API.
 
 ### nconf.add(name, options)
 Adds a new store with the specified `name` and `options`. If `options.type` is not set, then `name` will be used instead:
@@ -140,11 +148,9 @@ or as an array. If the last argument is a function, it will be called with the r
   var port = nconf.any('NODEJS_PORT', 'PORT');
 
   //
-  // Get one of 'NODEJS_IP' and 'IPADDRESS' using a callback
+  // Get one of 'NODEJS_IP' and 'IPADDRESS' using a promise
   //
-  nconf.any(['NODEJS_IP', 'IPADDRESS'], function(err, value) {
-    console.log('Connect to IP address ' + value);
-  });
+  const value = await nconf.anyAsync(['NODEJS_IP', 'IPADDRESS']);
 ```
 
 ### nconf.use(name, options)
@@ -432,40 +438,30 @@ This will encrypt each key using [`crypto.createCipheriv`](https://nodejs.org/ap
 ```
 
 ### Redis
-There is a separate Redis-based store available through [nconf-redis][0]. To install and use this store simply:
+The redis storage engine originally available through [nconf-redis][0] has been added to the default `nconf-esm` pacakge.
 
-``` bash
-  $ npm install nconf
-  $ npm install nconf-redis
-```
-
-Once installing both `nconf` and `nconf-redis`, you must require both modules to use the Redis store:
+To use it, you don't need to do anything other than include `nconf-esm` and specify the redis store:
 
 ``` js
-  var nconf = require('nconf');
-
-  //
-  // Requiring `nconf-redis` will extend the `nconf`
-  // module.
-  //
-  require('nconf-redis');
+  import nconf from 'nconf-esm';
 
   nconf.use('redis', { host: 'localhost', port: 6379, ttl: 60 * 60 * 1000 });
 ```
 
 ## Installation
 ``` bash
-  npm install nconf --save
+  npm install nconf-esm --save
 ```
 
 ## Run Tests
-Tests are written in vows and give complete coverage of all APIs and storage engines.
+Tests are written in jest and give (almost) complete coverage of all APIs and storage engines.
 
 ``` bash
   $ npm test
 ```
 
-#### Author: [Charlie Robbins](http://nodejitsu.com)
+#### Author: [Bart Riepe](https://github.com/aeolun)
+#### Original Author [Charlie Robbins](http://nodejitsu.com)
 #### License: MIT
 
 [0]: http://github.com/indexzero/nconf-redis

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "declarationDir": "lib/types/"
+  },
+  "include": ["src/**/*"]
+}

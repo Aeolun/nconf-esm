@@ -1,3 +1,12 @@
+v0.0.1 / Fri Apr 15 2022
+========================
+
+  * []() 0.0.1: Initial version built from typescript as esm && commonjs.
+
+Switched to nconf-esm
+=====================
+
+Versionining reset to 0.0.1
 
 v0.9.1 / Fri, 3 Nov 2017
 ========================
