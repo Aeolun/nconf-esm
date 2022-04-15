@@ -29,7 +29,7 @@ describe('nconf, When using the nconf', () => {
     expect(nconf.stores['memory'] instanceof nconf.Memory).toBe(true);
   });
   it("nconf should have the correct version set", done => {
-    fs.readFile(path.join(__dirname, '..', '..', 'package.json'), (err, data) => {
+    fs.readFile(path.join(__dirname, '..', 'package.json'), (err, data) => {
       expect(err).toBe(null);
       const newdata = JSON.parse(data.toString());
       expect(nconf.version).toEqual(newdata.version);

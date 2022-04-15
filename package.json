@@ -4,7 +4,7 @@
   "types": "./lib/types/src/index.d.ts",
   "module": "./lib/esm/src/index.mjs",
   "description": "Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "authors": [
     "Bart Riepe <bart@serial-experiments.com>",
     "Charlie Robbins <charlie.robbins@gmail.com>"
@@ -52,13 +52,14 @@
     "build": "rimraf lib && tsc -b tsconfig.cjs.json tsconfig.esm.json",
     "cover": "jest --coverage",
     "prettier": "prettier --write src/",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "prepublishOnly": "npm run test && npm run build"
   },
   "files": [
     "lib"
   ],
   "engines": {
-    "node": ">= 0.4.0"
+    "node": ">= 12.0.0"
   },
   "license": "MIT"
 }
