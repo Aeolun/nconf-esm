@@ -6,5 +6,5 @@
     "moduleResolution": "node",
     "declarationDir": "lib/types/"
   },
-  "include": ["src/**/*"]
+  "include": ["**/*"]
 }

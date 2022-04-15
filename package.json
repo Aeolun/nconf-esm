@@ -1,8 +1,8 @@
 {
   "name": "nconf-esm",
-  "main": "./lib/cjs/src/index.js",
-  "types": "./lib/types/src/index.d.ts",
-  "module": "./lib/esm/src/index.mjs",
+  "main": "./lib/cjs/index.js",
+  "types": "./lib/types/index.d.ts",
+  "module": "./lib/esm/index.js",
   "description": "Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging.",
   "version": "0.0.2",
   "authors": [
@@ -48,8 +48,9 @@
     "typescript": "^4.6.3"
   },
   "scripts": {
+    "prebuild": "node -p \"'export const LIB_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "test": "jest --verbose",
-    "build": "rimraf lib && tsc -b tsconfig.cjs.json tsconfig.esm.json",
+    "build": "rimraf lib && tsc -b src/tsconfig.cjs.json src/tsconfig.esm.json",
     "cover": "jest --coverage",
     "prettier": "prettier --write src/",
     "lint": "eslint .",

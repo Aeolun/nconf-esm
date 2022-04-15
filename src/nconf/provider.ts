@@ -7,10 +7,10 @@
 
 import * as async from "async";
 import common from "./common.js";
-import pkg from "../../package.json";
 import {Argv} from "./stores/argv.js";
 import {Env} from "./stores/env.js";
 import {File} from "./stores/file.js";
+import {LIB_VERSION} from '../version'
 import {Literal} from "./stores/literal.js";
 import {Memory} from "./stores/memory.js";
 import {Redis} from './stores/redis.js';
@@ -60,7 +60,7 @@ export class Provider {
   //
   // Expose the version from the package.json
   //
-  version = pkg.version;
+  version = LIB_VERSION;
 
   //
   // ### function init (options)
