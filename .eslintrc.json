@@ -1,7 +1,7 @@
 {
     "extends": [
         "xo",
-        "xo-typescript"
+        "xo-typescript/space"
     ],
     "parserOptions": {
         "project": "src/tsconfig.json"
