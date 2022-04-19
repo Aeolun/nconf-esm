@@ -1,7 +1,25 @@
-v0.0.1 / Fri Apr 15 2022
-========================
+# Changelog
 
-  * []() 0.0.1: Initial version built from typescript as esm && commonjs.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [v0.0.4](https://github.com/aeolun/nconf-esm/compare/v0.0.1...v0.0.4) (2022-04-19)
+
+
+### Bug Fixes
+
+* add pre-publish build and correct tests ([60c26b6](https://github.com/aeolun/nconf-esm/commit/60c26b6d85b87d939ccbcd17f9dba70591c30e93))
+* avoid dynamic require ([#386](https://github.com/aeolun/nconf-esm/issues/386)) ([#387](https://github.com/aeolun/nconf-esm/issues/387)) ([ce212b2](https://github.com/aeolun/nconf-esm/commit/ce212b2f1dbf96cee001b5f621979c564638f0e7))
+* callback on provider reset function is not required ([058f6b4](https://github.com/aeolun/nconf-esm/commit/058f6b4ccba7770f93a68603a0b42ef7dc8a54f8))
+* remove extra package.json files ([44e6f93](https://github.com/aeolun/nconf-esm/commit/44e6f93272f2652eb1f24007f4cd4a0c5871cec5))
+* tests running correctly again ([36b08cc](https://github.com/aeolun/nconf-esm/commit/36b08ccde02bf3cf7c71ae94491b1b3ea5dc68f9))
+
+## [v0.0.1](https://github.com/aeolun/nconf-esm/compare/v1.0.0-beta.0...v0.0.1) (2022-04-15)
+
+
+### Features
+
+* 0.0.1 of freshly converted typescript version ([cd2a976](https://github.com/aeolun/nconf-esm/commit/cd2a976512a8f40c318279859bb485c7666f9cbd))
+
 
 Switched to nconf-esm
 =====================
@@ -556,4 +574,3 @@ v0.1.1 / Sat, 2 Apr 2011
 
 v0.1.0 / Sat, 2 Apr 2011
 ========================
-
